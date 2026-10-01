@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation">
+  <meta name="description" content="CanonNav learns visual navigation from demonstrations recorded with different cameras: it canonicalizes camera geometry and adds safety and local-progress supervision from offline traversability estimates. RGB only at inference.">
+  <meta name="keywords" content="visual navigation, robot navigation, cross-platform, camera geometry, imitation learning, diffusion policy, traversability, robotics">
+  <meta name="author" content="Dong-Wook Kim, Ji-Hoon Hwang, E-In Son, Mintaek Oh, Seung-Woo Seo">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="CanonNav">
+  <meta property="og:title" content="CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation">
+  <meta property="og:description" content="CanonNav learns visual navigation from demonstrations recorded with different cameras: it canonicalizes camera geometry and adds safety and local-progress supervision from offline traversability estimates. RGB only at inference.">
+  <meta property="og:url" content="https://dongwookkim110.github.io/canonnav-project/">
+  <meta property="og:image" content="https://dongwookkim110.github.io/canonnav-project/static/images/social_preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="CanonNav - Research Preview">
+  <meta property="article:published_time" content="2026-08-31T00:00:00.000Z">
+  <meta property="article:author" content="Dong-Wook Kim">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="visual navigation">
+  <meta property="article:tag" content="robotics">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation">
+  <meta name="twitter:description" content="CanonNav learns visual navigation from demonstrations recorded with different cameras: it canonicalizes camera geometry and adds safety and local-progress supervision from offline traversability estimates. RGB only at inference.">
+  <meta name="twitter:image" content="https://dongwookkim110.github.io/canonnav-project/static/images/social_preview.jpg">
+  <meta name="twitter:image:alt" content="CanonNav - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation">
+  <meta name="citation_author" content="Kim, Dong-Wook">
+  <meta name="citation_author" content="Hwang, Ji-Hoon">
+  <meta name="citation_author" content="Son, E-In">
+  <meta name="citation_author" content="Oh, Mintaek">
+  <meta name="citation_author" content="Seo, Seung-Woo">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_arxiv_id" content="2608.30242">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.30242">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <link rel="canonical" href="https://dongwookkim110.github.io/canonnav-project/">
+  <title>CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation</title>
+
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation",
+    "description": "CanonNav learns visual navigation from demonstrations recorded with different cameras: it canonicalizes camera geometry and adds safety and local-progress supervision from offline traversability estimates. RGB only at inference.",
+    "author": [
+      {"@type": "Person", "name": "Dong-Wook Kim"},
+      {"@type": "Person", "name": "Ji-Hoon Hwang"},
+      {"@type": "Person", "name": "E-In Son"},
+      {"@type": "Person", "name": "Mintaek Oh"},
+      {"@type": "Person", "name": "Seung-Woo Seo"}
+    ],
+    "datePublished": "2026-08-31",
+    "url": "https://arxiv.org/abs/2608.30242",
+    "keywords": ["visual navigation", "robot navigation", "cross-platform", "camera geometry", "imitation learning"],
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: add personal links (<a href="..." target="_blank">Name</a>) -->
+              <span class="author-block">Dong-Wook Kim,</span>
+              <span class="author-block">Ji-Hoon Hwang,</span>
+              <span class="author-block">E-In Son,</span>
+              <span class="author-block">Mintaek Oh,</span>
+              <span class="author-block">Seung-Woo Seo</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <!-- TODO: institution and venue -->
+              <!-- <span class="author-block todo">Institution Name<br>Conference name and year</span> -->
+              <span class="author-block">Seoul National University, Republic of Korea</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2608.30242" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- TODO: link the public code repository and remove "disabled" -->
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark" disabled title="Coming soon">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2608.30242" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Teaser: motivation figure (paper Fig. 1).
+     When a teaser video is ready, put it here and move this figure to its own "Motivation" section:
+     <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
+       <source src="static/videos/teaser.mp4" type="video/mp4">
+     </video>
+-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="teaser-figure">
+        <a href="static/images/motivation.jpg" target="_blank">
+          <img src="static/images/motivation.jpg" width="1640" height="1662"
+               alt="Motivation: (a) cross-platform demonstrations where the same metric trajectory projects to different image regions and different trajectories look alike in the image; (b) a robot whose imitation-only trajectory collides with a wall, while identifying a local-progress region and generating a safe path reaches toward the goal.">
+        </a>
+        <figcaption>
+          <b>(a)</b> On robots with different cameras, the same metric trajectory falls on different image regions, while
+          different trajectories can look alike in the image. A policy trained directly on image-trajectory pairs must
+          therefore infer camera geometry from every observation while it learns to navigate.
+          <b>(b)</b> When the goal cannot be reached directly, the robot has to decide where to advance locally and how to
+          get there safely. Demonstrations show only the motion the expert chose, so imitation alone leaves these
+          decisions implicit and can steer straight into an obstacle.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<!-- End teaser -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            While visual navigation has advanced through imitation learning from cross-platform demonstrations, fully
+            leveraging such data remains challenging. First, directly learning from image-trajectory pairs entangles
+            navigation behavior with platform-dependent camera geometry. This hinders consistent learning by forcing the
+            policy to implicitly infer camera geometry from visual observations, an inherently ill-posed problem. Second,
+            imitation learning from demonstrated trajectories captures the expert's chosen motion but leaves the
+            intermediate decisions underlying that motion implicit. To address these issues, we propose CanonNav, a visual
+            navigation framework that disentangles navigation behavior from camera geometry and incorporates complementary
+            planning supervision into learning from cross-platform demonstrations. CanonNav introduces camera geometry
+            canonicalization, which transforms visual observations and trajectories into a camera-consistent
+            representation space. Building on this representation, we derive safety and local-progress supervision using
+            pseudo-labels from an offline traversability estimator. Safety supervision penalizes unsafe trajectories,
+            while local-progress supervision guides where the robot should advance. Experiments across diverse camera
+            configurations and environments show that, despite using only RGB at inference, CanonNav consistently
+            outperforms RGB-based baselines and even surpasses RGB-D-based methods in challenging scenarios.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    <figure class="method-figure">
+      <a href="static/images/method.jpg" target="_blank">
+        <img src="static/images/method.jpg" width="2400" height="1091" loading="lazy"
+             alt="CanonNav overview: (a) camera geometry canonicalization, (b) policy inference with diffusion trajectory, waypoint traversability and Scope-of-Reach heads, (c) navigation outputs, (d) training-time planning supervision from traversability estimation, a BEV collision map and its signed distance field.">
+      </a>
+      <figcaption>
+        <b>(a)</b> Images are warped to a canonical camera, and trajectories and goals are normalized by the camera height.
+        <b>(b)</b> Image and goal features are fused by cross-attention and passed to the prediction heads.
+        <b>(c)</b> The network predicts candidate trajectories, a traversability score for each waypoint, and the
+        Scope-of-Reach (SoR); the robot follows the best path among the candidates. <b>(d)</b> During training, pseudo-labels from an offline traversability
+        estimator yield a BEV collision map and signed distance field that supervise safety and the SoR target.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+<!-- End method -->
+
+
+<!-- Results -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <h3 class="title is-4 has-text-centered">Simulation Experiments</h3>
+    <figure class="wide-figure">
+      <a href="static/images/sim_qualitative.jpg" target="_blank">
+        <img src="static/images/sim_qualitative.jpg" width="2400" height="958" loading="lazy"
+             alt="Simulation comparison of CanonNav with ViNT, NoMaD, OmniVLA-edge, LiMo, ViPlanner and NavDP in outdoor street and hospital scenes: predicted paths toward a red goal point.">
+      </a>
+      <figcaption>
+        Qualitative comparison in simulation across camera configurations (red dot: goal, green: selected path,
+        orange: candidate paths, yellow: predicted SoR). CanonNav plans around obstacles toward the SoR, while
+        baselines often head straight at the goal through cars, walls and people.
+      </figcaption>
+    </figure>
+    <div class="results-table-block">
+      <div class="table-container">
+        <table class="table is-hoverable results-table">
+          <thead>
+            <tr><th rowspan="3">Method</th><th rowspan="3">Input</th><th colspan="6">CitySim (Outdoor)</th><th colspan="6">AWS Hospital (Indoor)</th></tr>
+            <tr><th colspan="2">6 m</th><th colspan="2">12 m</th><th colspan="2">20 m</th><th colspan="2">6 m</th><th colspan="2">9 m</th><th colspan="2">12 m</th></tr>
+            <tr><th>SR&nbsp;&uarr;</th><th>Coll.&nbsp;&darr;</th><th>SR&nbsp;&uarr;</th><th>Coll.&nbsp;&darr;</th><th>SR&nbsp;&uarr;</th><th>Coll.&nbsp;&darr;</th><th>SR&nbsp;&uarr;</th><th>Coll.&nbsp;&darr;</th><th>SR&nbsp;&uarr;</th><th>Coll.&nbsp;&darr;</th><th>SR&nbsp;&uarr;</th><th>Coll.&nbsp;&darr;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>ViNT</td><td><span class="input-tag input-rgb">RGB</span></td><td>93.8</td><td>0.69</td><td>63.0</td><td>4.27</td><td>18.6</td><td>8.03</td><td>62.1</td><td>9.23</td><td>38.8</td><td>13.07</td><td>30.0</td><td>13.10</td></tr>
+            <tr><td>NoMaD</td><td><span class="input-tag input-rgb">RGB</span></td><td>98.0</td><td>0.43</td><td>61.6</td><td>4.29</td><td>24.5</td><td>7.00</td><td>65.6</td><td>8.15</td><td>40.2</td><td>12.22</td><td>29.8</td><td>13.30</td></tr>
+            <tr><td>OmniVLA-edge</td><td><span class="input-tag input-rgb">RGB</span></td><td>89.4</td><td>0.76</td><td>61.4</td><td>2.87</td><td>28.5</td><td>4.26</td><td>72.2</td><td>6.11</td><td>41.7</td><td>10.98</td><td>31.1</td><td>11.68</td></tr>
+            <tr><td>LiMo</td><td><span class="input-tag input-rgb">RGB</span></td><td>99.1</td><td>0.26</td><td>79.6</td><td>2.16</td><td>48.3</td><td>4.25</td><td>81.0</td><td>4.17</td><td>54.3</td><td>8.03</td><td>39.7</td><td>9.92</td></tr>
+            <tr><td>ViPlanner</td><td><span class="input-tag input-rgbd">RGB-D</span></td><td>81.6</td><td>0.61</td><td>62.9</td><td>3.00</td><td>39.3</td><td>4.87</td><td>86.6</td><td>2.09</td><td>69.3</td><td>4.23</td><td>52.2</td><td>6.04</td></tr>
+            <tr><td>NavDP</td><td><span class="input-tag input-rgbd">RGB-D</span></td><td><b>99.7</b></td><td><b>0.07</b></td><td><u>93.7</u></td><td><u>0.54</u></td><td><u>71.2</u></td><td><u>2.21</u></td><td><b>98.3</b></td><td><b>0.53</b></td><td><b>93.1</b></td><td><b>1.22</b></td><td><u>82.9</u></td><td><b>1.91</b></td></tr>
+            <tr class="is-selected-ours"><td>CanonNav (Ours)</td><td><span class="input-tag input-rgb">RGB</span></td><td><u>99.4</u></td><td><u>0.20</u></td><td><b>94.1</b></td><td><b>0.53</b></td><td><b>86.4</b></td><td><b>0.89</b></td><td><u>97.1</u></td><td><u>1.26</u></td><td><u>92.2</u></td><td><u>1.77</u></td><td><b>85.5</b></td><td><u>2.37</u></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-caption">
+        Simulation results averaged over 18 camera configurations, for each subgoal interval.
+        SR: subgoal success rate (%); Coll.: collisions per 100&nbsp;m traveled.
+        Best results in <b>bold</b>, second-best <u>underlined</u>. From Table&nbsp;1 of the paper.
+      </p>
+    </div>
+
+    <h3 class="title is-4 has-text-centered">Real-world Experiments</h3>
+    <figure class="result-video">
+      <video autoplay muted loop playsinline controls preload="metadata" width="1280" height="548">
+        <source src="static/videos/real_corridor.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <figure class="result-video">
+      <video autoplay muted loop playsinline controls preload="metadata" width="1280" height="548">
+        <source src="static/videos/real_walkingpath.mp4" type="video/mp4">
+      </video>
+    </figure>
+    <figure class="result-video">
+      <video autoplay muted loop playsinline controls preload="metadata" width="1280" height="548">
+        <source src="static/videos/real_offroad.mp4" type="video/mp4">
+      </video>
+    </figure>
+
+  </div>
+</section>
+<!-- End results -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{kim2026canonnav,
+  title   = {CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation},
+  author  = {Kim, Dong-Wook and Hwang, Ji-Hoon and Son, E-In and Oh, Mintaek and Seo, Seung-Woo},
+  journal = {arXiv preprint arXiv:2608.30242},
+  year    = {2026}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+  </main>
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>
