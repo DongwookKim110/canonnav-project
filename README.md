@@ -1,14 +1,24 @@
-# CanonNav project page
+# CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation
 
-Static site served with GitHub Pages (Settings → Pages → Deploy from branch `main`, folder `/`).
+Project page: **https://dongwookkim110.github.io/canonnav-project/**
 
-- `index.html` — the page
-- `static/css/index.css` — page styles (template styles + "CanonNav additions" at the end)
-- `static/images/`, `static/videos/` — media (videos: H.264 `.mp4`, keep each file small)
+Paper: [arXiv:2608.30242](https://arxiv.org/abs/2608.30242)
 
-Grey dashed boxes and dashed-underlined text (`todo` class) still need real content.
-Preview locally: `python3 -m http.server` in this folder, then open http://localhost:8000.
+Dong-Wook Kim, Ji-Hoon Hwang, E-In Son, Mintaek Oh, Seung-Woo Seo — Seoul National University
 
-Built from the [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template)
-(adopted from [Nerfies](https://nerfies.github.io)), licensed under
-[CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/); keep the attribution in the page footer.
+## Citation
+
+```bibtex
+@article{kim2026canonnav,
+  title   = {CanonNav: Disentangling Navigation Behavior from Camera Geometry in Cross-Platform Visual Navigation},
+  author  = {Kim, Dong-Wook and Hwang, Ji-Hoon and Son, E-In and Oh, Mintaek and Seo, Seung-Woo},
+  journal = {arXiv preprint arXiv:2608.30242},
+  year    = {2026}
+}
+```
+
+## Website license
+
+This page is built from the [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template)
+(adopted from [Nerfies](https://nerfies.github.io)) and is licensed under
+[CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/).
